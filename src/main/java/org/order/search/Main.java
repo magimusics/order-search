@@ -1,12 +1,31 @@
 package org.order.search;
 
+//import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.FileReader;
+import java.io.*;
+import java.util.List;
+import java.util.Scanner;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        ClassLoader classLoader = Main.class.getClassLoader();
+        try (InputStream inputStream = classLoader.getResourceAsStream("users_data.json")) {
+            new ObjectMapper().readValue(inputStream, List<Order>.class);
+            if (inputStream == null) {
+                System.out.println("Файл не найден");
+                return;
+            }
+            Scanner scanner = new Scanner(inputStream);
+            while (scanner.hasNextLine()) {
+                System.out.println(scanner.nextLine());
+            }
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
