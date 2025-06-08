@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         ClassLoader classLoader = Main.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream("users_data.json")) {
-            new ObjectMapper().readValue(inputStream, List<Order>.class);
             if (inputStream == null) {
                 System.out.println("Файл не найден");
                 return;
