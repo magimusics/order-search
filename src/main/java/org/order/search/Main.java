@@ -5,6 +5,7 @@ import org.order.search.dto.UserContainer;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 
@@ -18,8 +19,11 @@ public class Main {
         System.out.println("Все ID заказов: " + allOrderIds);
 
 
-        String searchDigits = "7401";
-        List<String> foundOrders = findOrdersByLastDigits(allOrderIds, searchDigits);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите заказ: ");
+        String zakaz = scanner.nextLine();
+
+        List<String> foundOrders = findOrdersByLastDigits(allOrderIds, zakaz);
         System.out.println("Найденные заказы  " + foundOrders);
     }
 

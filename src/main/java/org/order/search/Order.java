@@ -13,19 +13,20 @@ public class Order {
         }
         return orderId.substring(orderId.length() - 4);
     }
-
-    public static List<String> readIDs(String filePath) {
-        List<String> readId = new ArrayList<String>();
-        try (Scanner scanner = new Scanner(new File(filePath))) {
-            while (scanner.hasNextLine()) {
-                readId.add(scanner.nextLine());
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found" + e.getMessage());
-        }
-        return readId;
-    }
 }
+
+//    public static List<String> readIDs(String filePath) {
+//        List<String> readId = new ArrayList<String>();
+//        try (Scanner scanner = new Scanner(new File(filePath))) {
+//            while (scanner.hasNextLine()) {
+//                readId.add(scanner.nextLine());
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File not found" + e.getMessage());
+//        }
+//        return readId;
+//    }
+//}
 
 
 
