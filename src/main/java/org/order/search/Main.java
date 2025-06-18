@@ -21,9 +21,9 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите заказ: ");
-        String zakaz = scanner.nextLine();
+        String order = scanner.nextLine();
 
-        List<String> foundOrders = findOrdersByLastDigits(allOrderIds, zakaz);
+        List<String> foundOrders = findOrdersByLastDigits(allOrderIds, order);
         System.out.println("Найденные заказы  " + foundOrders);
     }
 
