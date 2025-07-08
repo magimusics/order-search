@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.order.search.dto.User;
 import org.order.search.dto.UserContainer;
 import java.io.InputStream;
+import java.security.AllPermission;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -11,9 +12,9 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-
         List<UserContainer> userContainers = readUserData();
         if (userContainers == null) return;
+
 
         Map<String, User> users = new HashMap<>();
         for (UserContainer container  : userContainers) {
@@ -23,7 +24,7 @@ public class Main {
         }
 
         List<String> allOrderIds = extractOrderIds(userContainers);
-//        System.out.println("Все ID заказов: " + allOrderIds);
+        System.out.println("Все ID заказов: " + allOrderIds);
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите заказ: ");
@@ -54,10 +55,8 @@ public class Main {
         List<String> orderIds = new ArrayList<>();
         for (UserContainer container : userContainers) {
             if (container.getUser() != null &&
-                    container.getUser().getOrders() != null &&
-                    container.getUser().getOrders().getLastOrderIds() != null) {
-
-                orderIds.addAll(container.getUser().getOrders().getLastOrderIds());
+                    container.getUser().getId() != null) {
+                orderIds.add(container.getUser().getId());
             }
         }
         return orderIds;
