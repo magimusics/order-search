@@ -8,6 +8,18 @@ public class PersonalInfo {
     private String gender;
     private String phone;
 
+    @Override
+    public String toString() {
+        return "PersonalInfo{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
     public String getFirstName() {
         return firstName;
     }

@@ -1,31 +1,39 @@
 package org.order.search;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.order.search.dto.User;
 import org.order.search.dto.UserContainer;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 
 public class Main {
     public static void main(String[] args) {
+
         List<UserContainer> userContainers = readUserData();
         if (userContainers == null) return;
 
-        List<String> allOrderIds = extractAllOrderIds(userContainers);
-        System.out.println("Все ID заказов: " + allOrderIds);
+        Map<String, User> users = new HashMap<>();
+        for (UserContainer container  : userContainers) {
+            if (container.getUser() != null && container.getUser().getId() != null) {
+                users.put(container.getUser().getId(), container.getUser());
+            }
+        }
 
+        List<String> allOrderIds = extractOrderIds(userContainers);
+//        System.out.println("Все ID заказов: " + allOrderIds);
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите заказ: ");
         String order = scanner.nextLine();
 
-        List<String> foundOrders = findOrdersByLastDigits(allOrderIds, order);
-        System.out.println("Найденные заказы  " + foundOrders);
+
+        List<String> foundOrdersIds = findOrdersByLastDigits(allOrderIds, order);
+        System.out.println("Найденные заказы  " + foundOrdersIds);
     }
+
 
     private static List<UserContainer> readUserData() {
         ClassLoader classLoader = Main.class.getClassLoader();
@@ -42,16 +50,17 @@ public class Main {
         }
     }
 
-    private static List<String> extractAllOrderIds(List<UserContainer> userContainers) {
-        List<String> allOrderIds = new ArrayList<>();
+    private static List<String> extractOrderIds(List<UserContainer> userContainers) {
+        List<String> orderIds = new ArrayList<>();
         for (UserContainer container : userContainers) {
             if (container.getUser() != null &&
                     container.getUser().getOrders() != null &&
                     container.getUser().getOrders().getLastOrderIds() != null) {
-                allOrderIds.addAll(container.getUser().getOrders().getLastOrderIds());
+
+                orderIds.addAll(container.getUser().getOrders().getLastOrderIds());
             }
         }
-        return allOrderIds;
+        return orderIds;
     }
 
     private static List<String> findOrdersByLastDigits(List<String> orderIds, String lastDigits) {
